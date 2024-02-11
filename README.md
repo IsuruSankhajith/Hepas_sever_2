@@ -31,6 +31,4 @@ The Server-2 component of the Honors Enrolment Pre-assessment System (HEPaS) ser
 ### License:
 MIT
 
----
 
-Feel free to adjust the content as needed to match your project's specifics and preferences!
