@@ -1,0 +1,104 @@
+// Server2.java (OSCLR Database Server)
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.List;
+
+public interface Server2 extends Remote {
+    List<CourseLearningRecord> getCourseLearningRecords(String studentId) throws RemoteException;
+}
+
+// CourseLearningRecord.java (POJO for Course Learning Record)
+import java.io.Serializable;
+
+public class CourseLearningRecord implements Serializable {
+    private String unitCode;
+    private int score;
+
+    // Constructors, getters, and setters
+}
+
+// Server2Impl.java (Implementation of Server2)
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
+
+public class Server2Impl extends UnicastRemoteObject implements Server2 {
+    // Implementation of getCourseLearningRecords method
+    public List<CourseLearningRecord> getCourseLearningRecords(String studentId) throws RemoteException {
+        // Retrieve and return course learning records from the OSCLR database
+        // Implementation details omitted for brevity
+    }
+}
+//////////////////////
+
+// Server1.java (Existing Server-1 Interface)
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface Server1 extends Remote {
+    // Existing methods from Server-1
+    // ...
+
+    // New method for honors study pre-assessment using OUST student records
+    String doHonorsStudyPreAssessmentWithOUSTRecords(String studentId) throws RemoteException;
+}
+
+// Server1Impl.java (Updated Implementation of Server-1)
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class Server1Impl extends UnicastRemoteObject implements Server1 {
+    // Existing methods implementation
+    // ...
+
+    // New method implementation for honors study pre-assessment with OUST records
+    public String doHonorsStudyPreAssessmentWithOUSTRecords(String studentId) throws RemoteException {
+        // Make a request to Server-2 to get course learning records
+        List<CourseLearningRecord> courseRecords = server2.getCourseLearningRecords(studentId);
+
+        // Extract related data items and perform HEPa evaluation
+        // Implementation details omitted for brevity
+
+        // Return the evaluation result
+        return "Honors Study Pre-Assessment Result";
+    }
+}
+///////////////////
+
+// Client.java (Existing Client Interface)
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface Client extends Remote {
+    // Existing methods from Client
+    // ...
+
+    // New methods for honors study pre-assessment
+    String doHonorsStudyPreAssessment(String personId, String[] unitResults) throws RemoteException;
+    String doHonorsStudyPreAssessmentWithOUSTRecords(String studentId, String authInfo) throws RemoteException;
+}
+
+// ClientImpl.java (Updated Implementation of Client)
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class ClientImpl extends UnicastRemoteObject implements Client {
+    // Existing methods implementation
+    // ...
+
+    // New methods implementation for honors study pre-assessment
+    public String doHonorsStudyPreAssessment(String personId, String[] unitResults) throws RemoteException {
+        // Implementation details for honors study pre-assessment
+        // ...
+    }
+
+    public String doHonorsStudyPreAssessmentWithOUSTRecords(String studentId, String authInfo) throws RemoteException {
+        // Make a request to Server-1 to use OUST records for evaluation
+        String result = server1.doHonorsStudyPreAssessmentWithOUSTRecords(studentId);
+
+        // Display or process the result
+        // ...
+
+        return result;
+    }
+}
