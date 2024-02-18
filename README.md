@@ -1,5 +1,5 @@
 
-## Server-2: OSCLR Database Server
+## Server-2: OSCLR Database Server 
 
 The Server-2 component of the Honors Enrolment Pre-assessment System (HEPaS) serves as the OSCLR (Open University of Science and Technology Course Learning Records) database server. It stores OUST students' course learning records, including unit selection/learning history and related unit results.
 
